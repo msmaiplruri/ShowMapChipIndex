@@ -1,0 +1,36 @@
+﻿<Window x:Class="ShowMapChipIndex.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ShowMapChipIndex"
+        Title="ShowMapChipIndex" 
+        Height="300"
+        MinHeight="100"
+        Width="300"
+        MinWidth="200"
+        AllowDrop="True"
+        Drop="Window_Drop">
+    <Window.Resources>
+        <local:ScrollConverter x:Key="scrollConverter" />
+    </Window.Resources>
+    
+    <StackPanel>
+        <TextBox x:Name="chipSize" Text="32" Width="{Binding Width}"/>
+        <Button Click="Button_Click">Submit</Button>
+        <TextBlock x:Name="tutorialMSG" Text="Drag and Drop Image Here."/>
+        <ScrollViewer 
+            x:Name="scrollViewer"
+            VerticalScrollBarVisibility="Auto"
+            Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Path=ActualHeight, Converter={StaticResource scrollConverter}}">
+            <Grid>
+                <Image 
+                   x:Name="image"
+                   Stretch="Fill"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" 
+                   Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"/>
+                <Canvas x:Name="canvas"></Canvas>
+            </Grid>
+        </ScrollViewer>
+    </StackPanel>
+</Window>
